@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="headerSize2">100px</dimen>
+    <dimen name="headerSize">220px</dimen>
+    <dimen name="headerSize3">80px</dimen>
+    <dimen name="normalTextSize">50px</dimen>
+</resources>
