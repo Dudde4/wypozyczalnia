@@ -72,7 +72,7 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <Button
-            android:id="@+id/button3"
+            android:id="@+id/registerButton"
             android:layout_width="180dp"
             android:layout_height="60dp"
             android:backgroundTint="@color/button_color"

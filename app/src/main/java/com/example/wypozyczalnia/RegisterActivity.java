@@ -20,6 +20,7 @@ public class RegisterActivity extends AppCompatActivity {
         setContentView(R.layout.register_layout);
 
         Button buttonBack = findViewById(R.id.buttonBack);
+        Button registerbutton = findViewById(R.id.registerButton);
 
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
@@ -29,6 +30,14 @@ public class RegisterActivity extends AppCompatActivity {
         });
 
         buttonBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        registerbutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
