@@ -17,7 +17,9 @@ import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.Switch;
 
+import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -32,8 +34,8 @@ public class SearchActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.search_layout);
 
-        Spinner timeSpinner1 = findViewById(R.id.timeSpiner1);
-        Spinner timeSpinner2 = findViewById(R.id.timeSpiner2);
+        Spinner timeSpiner1 = findViewById(R.id.timeSpiner1);
+        Spinner timeSpiner2 = findViewById(R.id.timeSpiner2);
 
         List<String> hoursList = new ArrayList<>();
         for (int hour = 8; hour <= 16; hour++) {
@@ -41,11 +43,14 @@ public class SearchActivity extends AppCompatActivity {
             hoursList.add(hourString);
         }
 
+
+
+
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, hoursList);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
-        timeSpinner1.setAdapter(adapter);
-        timeSpinner2.setAdapter(adapter);
+        timeSpiner1.setAdapter(adapter);
+        timeSpiner2.setAdapter(adapter);
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
         bottomNavigationView.setSelectedItemId(R.id.search);
