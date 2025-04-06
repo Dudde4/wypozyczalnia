@@ -32,6 +32,7 @@ public class SearchActivity extends AppCompatActivity {
         }
 
 
+
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, hoursList);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
