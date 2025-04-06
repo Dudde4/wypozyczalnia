@@ -2,17 +2,12 @@ package com.example.wypozyczalnia;
 
 import android.os.Bundle;
 import android.widget.Spinner;
-import android.os.Bundle;
 import android.widget.ArrayAdapter;
-import android.widget.Spinner;
 import androidx.appcompat.app.AppCompatActivity;
 import java.util.List;
 import java.util.ArrayList;
 import androidx.activity.EdgeToEdge;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
+
 
 public class SearchActivity extends AppCompatActivity {
 
@@ -30,6 +25,7 @@ public class SearchActivity extends AppCompatActivity {
             String hourString = String.format("%02d:00", hour);
             hoursList.add(hourString);
         }
+
 
 
 
