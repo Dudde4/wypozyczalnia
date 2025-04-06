@@ -72,23 +72,12 @@ public class LoginActivity extends AppCompatActivity {
             fis.close();
 
             String fileContents = new String(buffer);
+            return CredentialChecker.checkCredentials(fileContents, email, haslo);
 
-            // Szukamy linii, która zawiera email i hasło
-            String[] lines = fileContents.split("\n");
-            for (String line : lines) {
-                String[] parts = line.split(";");
-                if (parts.length == 4) {
-                    String savedEmail = parts[2];  // Zakładając, że email jest na 3. pozycji
-                    String savedHaslo = parts[3];  // Zakładając, że hasło jest na 4. pozycji
-
-                    if (savedEmail.equals(email) && savedHaslo.equals(haslo)) {
-                        return true;  // Zgodność danych
-                    }
-                }
-            }
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return false;  // Brak zgodności danych
+        return false;
     }
+
 }
