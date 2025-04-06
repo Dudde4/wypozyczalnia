@@ -23,6 +23,9 @@
         </activity>
         <activity android:name=".RegisterActivity" />
         <activity android:name=".SearchActivity" />
+        <activity android:name=".CarsActivity"/>
+        <activity android:name=".AccountActivity"/>
+        <activity android:name=".CarActivity"/>
     </application>
 
 </manifest>

@@ -2,60 +2,31 @@ package com.example.wypozyczalnia;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.Switch;
 
 import androidx.activity.EdgeToEdge;
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
-import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.navigation.NavigationBarView;
-
-public class SearchActivity extends AppCompatActivity {
-
+public class CarActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.search_layout);
-
-        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
-        bottomNavigationView.setSelectedItemId(R.id.search);
+        setContentView(R.layout.car_layout);
 
         Switch switchButton = findViewById(R.id.switchButton);
         ConstraintLayout containerSwitch2 = findViewById(R.id.containerSwitch2);
         ConstraintLayout containerSwitch1 = findViewById(R.id.containerSwitch1);
 
-        Button searchButton = findViewById(R.id.searchButton);
+        Button backButton = findViewById(R.id.backButton);
 
         switchButton.setChecked(false);
         containerSwitch2.setVisibility(View.GONE);
         containerSwitch1.setVisibility(View.VISIBLE);
-
-        bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                int itemId = item.getItemId();
-
-                if (itemId == R.id.search) {
-                    return true;
-                } else if (itemId == R.id.cars) {
-                    startActivity(new Intent(SearchActivity.this, CarsActivity.class));
-                    overridePendingTransition(0, 0);
-                    return true;
-                } else if (itemId == R.id.account) {
-                    startActivity(new Intent(SearchActivity.this, AccountActivity.class));
-                    overridePendingTransition(0, 0);
-                    return true;
-                }
-                return false;
-            }
-        });
 
         switchButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -78,10 +49,10 @@ public class SearchActivity extends AppCompatActivity {
             containerSwitch2.setVisibility(ConstraintLayout.GONE);
         }
 
-        searchButton.setOnClickListener(new View.OnClickListener() {
+        backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(SearchActivity.this, CarsActivity.class);
+                Intent intent = new Intent(CarActivity.this, CarsActivity.class);
                 startActivity(intent);
             }
         });

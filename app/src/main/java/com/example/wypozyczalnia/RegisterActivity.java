@@ -19,9 +19,8 @@ public class RegisterActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.register_layout);
 
-        Button buttonBack = findViewById(R.id.buttonBack);
+        Button backButton = findViewById(R.id.backButton);
         Button registerbutton = findViewById(R.id.registerButton);
-
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
@@ -29,7 +28,7 @@ public class RegisterActivity extends AppCompatActivity {
             return insets;
         });
 
-        buttonBack.setOnClickListener(new View.OnClickListener() {
+        backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);

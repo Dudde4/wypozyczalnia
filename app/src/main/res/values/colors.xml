@@ -4,6 +4,8 @@
     <color name="white">#EEEEEE</color>
     <color name="background">#CCD5FF</color>
     <color name="textColor">#304584</color>
-    <color name="button_color">#7992FF</color>
+    <color name="light_purple">#7992FF</color>
     <color name="yellow">#E9BE14</color>
+    <color name="grey_text">#CFCFCF</color>
+    <color name="yellow_star">#E9BE14</color>
 </resources>

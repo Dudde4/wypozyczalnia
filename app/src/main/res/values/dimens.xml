@@ -5,4 +5,5 @@
     <dimen name="headerSize3">80px</dimen>
     <dimen name="normalTextSize">50px</dimen>
     <dimen name="offerHeader">90px</dimen>
+    <dimen name="smallText">35px</dimen>
 </resources>
