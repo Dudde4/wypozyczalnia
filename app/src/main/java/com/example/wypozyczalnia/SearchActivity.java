@@ -60,6 +60,7 @@ public class SearchActivity extends AppCompatActivity {
         containerSwitch2.setVisibility(View.GONE);
         containerSwitch1.setVisibility(View.VISIBLE);
 
+        //nawigacja
         bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -80,6 +81,7 @@ public class SearchActivity extends AppCompatActivity {
             }
         });
 
+        //czy odbior na miejscu czy nie
         switchButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -101,6 +103,7 @@ public class SearchActivity extends AppCompatActivity {
             containerSwitch2.setVisibility(ConstraintLayout.GONE);
         }
 
+        //wyszukaj
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
