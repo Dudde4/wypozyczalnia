@@ -15,6 +15,9 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.example.wypozyczalnia.admin.AdminCarsActivity;
+import com.example.wypozyczalnia.user.SearchActivity;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -34,14 +37,7 @@ public class LoginActivity extends AppCompatActivity {
         copyDefaultUsersFileIfNeeded();
 
         // Pobieramy widoki
-        TextView registerTextView = findViewById(R.id.RegistertextView); // Link do rejestracji
-
-        // Ustawienie paddingu dla system bars
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });
+        TextView registerTextView = findViewById(R.id.registerTextView); // Link do rejestracji
 
         // Kliknięcie na rejestrację (przenosi do RegisterActivity)
         registerTextView.setOnClickListener(new View.OnClickListener() {
@@ -50,6 +46,13 @@ public class LoginActivity extends AppCompatActivity {
                 Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
                 startActivity(intent);
             }
+        });
+
+        // Ustawienie paddingu dla system bars
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
+            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
+            return insets;
         });
 
 
@@ -63,11 +66,10 @@ public class LoginActivity extends AppCompatActivity {
             String haslo = hasloInput.getText().toString();
 
             if (checkCredentials(email, haslo)) {
-                if(adminMode){
+                if (adminMode) {
                     Intent intent = new Intent(LoginActivity.this, AdminCarsActivity.class);
                     startActivity(intent);
-                }
-                else{
+                } else {
                     // Jeśli dane są poprawne, przechodzimy do SearchActivity
                     Intent intent = new Intent(LoginActivity.this, SearchActivity.class);
                     startActivity(intent);
@@ -106,8 +108,7 @@ public class LoginActivity extends AppCompatActivity {
                     String savedHaslo = parts[3].trim();
 
                     if (savedEmail.equals(email) && savedHaslo.equals(haslo)) {
-                        if(savedEmail.equals("Admin@gmail.com"))
-                        {
+                        if (savedEmail.equals("Admin@gmail.com")) {
                             adminMode = true;
                             return true;
                         }
@@ -129,10 +130,12 @@ public class LoginActivity extends AppCompatActivity {
 
         if (!isFileCopied) {
             prefs.edit().putBoolean("isFileCopied", true).apply();
-            File destFile = new File(getExternalFilesDir(null), "uzytkownicy.txt");
+            File userFile = new File(getExternalFilesDir(null), "uzytkownicy.txt");
+            File carFile = new File(getExternalFilesDir(null), "cars.txt");
+
             try {
                 InputStream is = getAssets().open("uzytkownicy.txt");
-                FileOutputStream fos = new FileOutputStream(destFile);
+                FileOutputStream fos = new FileOutputStream(userFile);
 
                 byte[] buffer = new byte[1024];
                 int length;
@@ -143,8 +146,21 @@ public class LoginActivity extends AppCompatActivity {
                 fos.close();
                 is.close();
 
+                InputStream is2 = getAssets().open("cars.txt");
+                FileOutputStream fos2 = new FileOutputStream(carFile);
+
+                byte[] buffer2 = new byte[1024];
+                int length2;
+                while ((length2 = is2.read(buffer2)) > 0) {
+                    fos2.write(buffer2, 0, length2);
+                }
+
+                fos2.close();
+                is2.close();
+
                 // Ustawiamy flagę, że plik został już skopiowany
                 prefs.edit().putBoolean("isFileCopied", true).apply();
+                Toast.makeText(this, "Plik samochodow został utworzony", Toast.LENGTH_SHORT).show();
 
                 Toast.makeText(this, "Plik użytkowników został utworzony", Toast.LENGTH_SHORT).show();
             } catch (IOException e) {
@@ -153,6 +169,4 @@ public class LoginActivity extends AppCompatActivity {
             }
         }
     }
-
-
 }

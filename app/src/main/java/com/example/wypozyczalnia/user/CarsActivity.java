@@ -1,4 +1,4 @@
-package com.example.wypozyczalnia;
+package com.example.wypozyczalnia.user;
 
 import android.content.Intent;
 import android.graphics.Color;
@@ -13,6 +13,7 @@ import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.wypozyczalnia.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.imageview.ShapeableImageView;
 import com.google.android.material.navigation.NavigationBarView;
