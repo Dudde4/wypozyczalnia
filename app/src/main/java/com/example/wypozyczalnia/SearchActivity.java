@@ -80,6 +80,7 @@ public class SearchActivity extends AppCompatActivity {
         containerSwitch2.setVisibility(View.GONE);
         containerSwitch1.setVisibility(View.VISIBLE);
 
+        //nawigacja
         switchButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -120,6 +121,37 @@ public class SearchActivity extends AppCompatActivity {
                     return true;
                 }
                 return false;
+            }
+        });
+
+        //czy odbior na miejscu czy nie
+        switchButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    containerSwitch1.setVisibility(ConstraintLayout.GONE);
+                    containerSwitch2.setVisibility(ConstraintLayout.VISIBLE);
+                } else {
+                    containerSwitch1.setVisibility(ConstraintLayout.VISIBLE);
+                    containerSwitch2.setVisibility(ConstraintLayout.GONE);
+                }
+            }
+        });
+
+        if (switchButton.isChecked()) {
+            containerSwitch1.setVisibility(ConstraintLayout.GONE);
+            containerSwitch2.setVisibility(ConstraintLayout.VISIBLE);
+        } else {
+            containerSwitch1.setVisibility(ConstraintLayout.VISIBLE);
+            containerSwitch2.setVisibility(ConstraintLayout.GONE);
+        }
+
+        //wyszukaj
+        searchButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(SearchActivity.this, CarsActivity.class);
+                startActivity(intent);
             }
         });
     }
