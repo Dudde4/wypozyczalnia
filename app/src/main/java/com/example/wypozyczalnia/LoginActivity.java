@@ -1,6 +1,7 @@
 package com.example.wypozyczalnia;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -16,7 +17,9 @@ import androidx.core.view.WindowInsetsCompat;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -28,11 +31,10 @@ public class LoginActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.login_layout);
 
+        copyDefaultUsersFileIfNeeded();
+
         // Pobieramy widoki
         TextView registerTextView = findViewById(R.id.RegistertextView); // Link do rejestracji
-        EditText emailInput = findViewById(R.id.emailInput);  // Email
-        EditText hasloInput = findViewById(R.id.hasloInput);  // Hasło
-        Button loginButton = findViewById(R.id.loginButton);  // Przycisk logowania
 
         // Ustawienie paddingu dla system bars
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
@@ -49,6 +51,11 @@ public class LoginActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+
+        EditText emailInput = findViewById(R.id.emailInput);  // Email
+        EditText hasloInput = findViewById(R.id.hasloInput);  // Hasło
+        Button loginButton = findViewById(R.id.loginButton);  // Przycisk logowania
 
         // Kliknięcie na przycisk logowania
         loginButton.setOnClickListener(v -> {
@@ -114,4 +121,37 @@ public class LoginActivity extends AppCompatActivity {
         }
         return false;
     }
+
+    private void copyDefaultUsersFileIfNeeded() {
+        // SharedPreferences do zapisania stanu
+        SharedPreferences prefs = getSharedPreferences("AppPrefs", MODE_PRIVATE);
+        boolean isFileCopied = prefs.getBoolean("isFileCopied", false);
+
+        if (!isFileCopied) {
+            prefs.edit().putBoolean("isFileCopied", true).apply();
+            File destFile = new File(getExternalFilesDir(null), "uzytkownicy.txt");
+            try {
+                InputStream is = getAssets().open("uzytkownicy.txt");
+                FileOutputStream fos = new FileOutputStream(destFile);
+
+                byte[] buffer = new byte[1024];
+                int length;
+                while ((length = is.read(buffer)) > 0) {
+                    fos.write(buffer, 0, length);
+                }
+
+                fos.close();
+                is.close();
+
+                // Ustawiamy flagę, że plik został już skopiowany
+                prefs.edit().putBoolean("isFileCopied", true).apply();
+
+                Toast.makeText(this, "Plik użytkowników został utworzony", Toast.LENGTH_SHORT).show();
+            } catch (IOException e) {
+                e.printStackTrace();
+                Toast.makeText(this, "Błąd kopiowania pliku", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
 }
