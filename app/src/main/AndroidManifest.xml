@@ -22,13 +22,16 @@
             </intent-filter>
         </activity>
         <activity android:name=".RegisterActivity" />
-        <activity android:name=".SearchActivity" />
-        <activity android:name=".CarsActivity"/>
-        <activity android:name=".AccountActivity"/>
-        <activity android:name=".CarActivity"/>
-        <activity android:name=".HistoryActivity"/>
-        <activity android:name=".AdminCarsActivity"/>
-        <activity android:name=".AdminAddCarActivity"/>s
+        <activity android:name=".user.SearchActivity" />
+        <activity android:name=".user.CarsActivity"/>
+        <activity android:name=".user.AccountActivity"/>
+        <activity android:name=".user.CarActivity"/>
+        <activity android:name=".user.HistoryActivity"/>
+        <activity android:name=".admin.AdminCarsActivity"/>
+        <activity android:name=".admin.AdminAddCarActivity"/>
+        <activity android:name=".admin.AdminEditCarActivity"/>
+        <activity android:name=".admin.AdminUsersActivity"/>
+        <activity android:name=".admin.AdminUserActivity"/>
     </application>
 
 </manifest>
