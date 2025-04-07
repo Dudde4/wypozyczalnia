@@ -50,11 +50,12 @@ public class AdminCarsActivity extends AppCompatActivity {
         carView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(AdminCarsActivity.this, CarActivity.class);
-                startActivity(intent);
+                //Intent intent = new Intent(AdminCarsActivity.this, CarActivity.class);
+                //startActivity(intent);
             }
         });
 
+        // Cofanie do poprzedniego widoku
         Button addButton = findViewById(R.id.addButton);
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
