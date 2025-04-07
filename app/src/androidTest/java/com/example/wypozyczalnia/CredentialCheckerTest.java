@@ -3,6 +3,8 @@ package com.example.wypozyczalnia;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
+import com.example.wypozyczalnia.testy.CredentialChecker;
+
 public class CredentialCheckerTest {
 
     @Test
