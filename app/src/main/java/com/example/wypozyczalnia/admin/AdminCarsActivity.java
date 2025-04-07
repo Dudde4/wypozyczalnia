@@ -1,4 +1,4 @@
-package com.example.wypozyczalnia;
+package com.example.wypozyczalnia.admin;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,6 +10,10 @@ import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.wypozyczalnia.LoginActivity;
+import com.example.wypozyczalnia.user.AccountActivity;
+import com.example.wypozyczalnia.R;
+import com.example.wypozyczalnia.user.SearchActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.imageview.ShapeableImageView;
 import com.google.android.material.navigation.NavigationBarView;
@@ -33,11 +37,11 @@ public class AdminCarsActivity extends AppCompatActivity {
                 if (itemId == R.id.cars) {
                     return true;
                 } else if (itemId == R.id.users) {
-                    startActivity(new Intent(AdminCarsActivity.this, SearchActivity.class));
+                    startActivity(new Intent(AdminCarsActivity.this, AdminUsersActivity.class));
                     overridePendingTransition(0, 0);
                     return true;
                 } else if (itemId == R.id.logout) {
-                    startActivity(new Intent(AdminCarsActivity.this, AccountActivity.class));
+                    startActivity(new Intent(AdminCarsActivity.this, LoginActivity.class));
                     overridePendingTransition(0, 0);
                     return true;
                 }
@@ -50,8 +54,8 @@ public class AdminCarsActivity extends AppCompatActivity {
         carView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Intent intent = new Intent(AdminCarsActivity.this, CarActivity.class);
-                //startActivity(intent);
+                Intent intent = new Intent(AdminCarsActivity.this, AdminEditCarActivity.class);
+                startActivity(intent);
             }
         });
 

@@ -1,4 +1,4 @@
-package com.example.wypozyczalnia;
+package com.example.wypozyczalnia.user;
 
 import android.content.Intent;
 import android.graphics.Color;
@@ -18,6 +18,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
+import com.example.wypozyczalnia.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
