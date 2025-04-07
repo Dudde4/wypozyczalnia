@@ -32,13 +32,6 @@ public class SearchActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.search_layout);
 
-        Spinner timeSpiner1 = findViewById(R.id.timeSpiner1);
-        Spinner timeSpiner2 = findViewById(R.id.timeSpiner2);
-        EditText editTextText4 = findViewById(R.id.editTextText4); // Miejsce odbioru
-        Switch switchButton = findViewById(R.id.switchButton);
-        ConstraintLayout containerSwitch2 = findViewById(R.id.containerSwitch2);
-        ConstraintLayout containerSwitch1 = findViewById(R.id.containerSwitch1);
-        Button searchButton = findViewById(R.id.searchButton);
 
         // Lista godzin (8:00 - 16:00)
         List<String> hoursList = new ArrayList<>();
@@ -68,6 +61,9 @@ public class SearchActivity extends AppCompatActivity {
         };
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
+        Spinner timeSpiner1 = findViewById(R.id.timeSpiner1);
+        Spinner timeSpiner2 = findViewById(R.id.timeSpiner2);
+
         timeSpiner1.setAdapter(adapter);
         timeSpiner2.setAdapter(adapter);
 
@@ -75,11 +71,16 @@ public class SearchActivity extends AppCompatActivity {
         timeSpiner1.setSelection(0);
         timeSpiner2.setSelection(0);
 
+        Switch switchButton = findViewById(R.id.switchButton);
+        ConstraintLayout containerSwitch2 = findViewById(R.id.containerSwitch2);
+        ConstraintLayout containerSwitch1 = findViewById(R.id.containerSwitch1);
+
         // Obsługa switcha (zwrot w innym miejscu)
         switchButton.setChecked(false);
         containerSwitch2.setVisibility(View.GONE);
         containerSwitch1.setVisibility(View.VISIBLE);
 
+        //nawigacja
         switchButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -89,13 +90,16 @@ public class SearchActivity extends AppCompatActivity {
         });
 
         // Obsługa przycisku wyszukiwania
+        Button searchButton = findViewById(R.id.searchButton);
+        EditText odbiorEditText = findViewById(R.id.odbiorEditText); // Miejsce odbioru
+
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(SearchActivity.this, CarsActivity.class);
-                // Przekazanie miejsca odbioru do CarsActivity
-                String miejsceOdbioru = editTextText4.getText().toString();
-                intent.putExtra("MIEJSCE_ODBIORU", miejsceOdbioru);
+                public void onClick(View v) {
+                    Intent intent = new Intent(SearchActivity.this, CarsActivity.class);
+                    // Przekazanie miejsca odbioru do CarsActivityiza
+                    String miejsceOdbioru = odbiorEditText.getText().toString();
+                    intent.putExtra("MIEJSCE_ODBIORU", miejsceOdbioru);
                 startActivity(intent);
             }
         });
@@ -122,5 +126,27 @@ public class SearchActivity extends AppCompatActivity {
                 return false;
             }
         });
+
+        //czy odbior na miejscu czy nie
+        switchButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    containerSwitch1.setVisibility(ConstraintLayout.GONE);
+                    containerSwitch2.setVisibility(ConstraintLayout.VISIBLE);
+                } else {
+                    containerSwitch1.setVisibility(ConstraintLayout.VISIBLE);
+                    containerSwitch2.setVisibility(ConstraintLayout.GONE);
+                }
+            }
+        });
+
+        if (switchButton.isChecked()) {
+            containerSwitch1.setVisibility(ConstraintLayout.GONE);
+            containerSwitch2.setVisibility(ConstraintLayout.VISIBLE);
+        } else {
+            containerSwitch1.setVisibility(ConstraintLayout.VISIBLE);
+            containerSwitch2.setVisibility(ConstraintLayout.GONE);
+        }
     }
 }

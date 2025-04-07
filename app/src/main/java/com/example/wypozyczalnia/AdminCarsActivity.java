@@ -11,35 +11,33 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.imageview.ShapeableImageView;
 import com.google.android.material.navigation.NavigationBarView;
 
-
-public class AccountActivity extends AppCompatActivity {
+public class AdminCarsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.account_layout);
+        setContentView(R.layout.admin_cars_layout);
 
+        // Obsługa nawigacji
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
-        bottomNavigationView.setSelectedItemId(R.id.account);
+        bottomNavigationView.setSelectedItemId(R.id.cars);
 
-        Button showHistoryButton = findViewById(R.id.showHistoryButton);
-
-        //nawigacja
         bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 int itemId = item.getItemId();
 
-                if (itemId == R.id.account) {
+                if (itemId == R.id.cars) {
                     return true;
-                } else if (itemId == R.id.cars) {
-                    startActivity(new Intent(AccountActivity.this, CarsActivity.class));
+                } else if (itemId == R.id.users) {
+                    startActivity(new Intent(AdminCarsActivity.this, SearchActivity.class));
                     overridePendingTransition(0, 0);
                     return true;
-                } else if (itemId == R.id.search) {
-                    startActivity(new Intent(AccountActivity.this, SearchActivity.class));
+                } else if (itemId == R.id.logout) {
+                    startActivity(new Intent(AdminCarsActivity.this, AccountActivity.class));
                     overridePendingTransition(0, 0);
                     return true;
                 }
@@ -47,14 +45,24 @@ public class AccountActivity extends AppCompatActivity {
             }
         });
 
-        //przenoszenie do widoku historii
-        showHistoryButton.setOnClickListener(new View.OnClickListener() {
+        // Obsługa kliknięcia w obrazek samochodu
+        ShapeableImageView carView = findViewById(R.id.myImageView);
+        carView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(AccountActivity.this, HistoryActivity.class);
-                startActivity(intent);
+                //Intent intent = new Intent(AdminCarsActivity.this, CarActivity.class);
+                //startActivity(intent);
             }
         });
 
+        // Cofanie do poprzedniego widoku
+        Button addButton = findViewById(R.id.addButton);
+        addButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(AdminCarsActivity.this, AdminAddCarActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 }
