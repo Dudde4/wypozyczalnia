@@ -89,6 +89,7 @@ public class LoginActivity extends AppCompatActivity {
             fis.close();
 
             String fileContents = new String(buffer);
+            return CredentialChecker.checkCredentials(fileContents, email, haslo);
 
             // Szukamy linii, która zawiera email i hasło
             String[] lines = fileContents.split("\n");
@@ -114,4 +115,5 @@ public class LoginActivity extends AppCompatActivity {
         }
         return false;
     }
+
 }
