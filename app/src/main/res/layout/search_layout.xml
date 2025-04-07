@@ -356,7 +356,7 @@
             app:srcCompat="@drawable/text_background" />
 
         <EditText
-            android:id="@+id/editTextText4"
+            android:id="@+id/odbiorEditText"
             style="@style/Widget.Material3.AutoCompleteTextView.FilledBox"
             android:layout_width="350dp"
             android:layout_height="60dp"
