@@ -56,9 +56,9 @@ public class LoginActivity extends AppCompatActivity {
         });
 
 
-        EditText emailInput = findViewById(R.id.emailInput);  // Email
-        EditText hasloInput = findViewById(R.id.hasloInput);  // Hasło
-        Button loginButton = findViewById(R.id.loginButton);  // Przycisk logowania
+        EditText emailInput = findViewById(R.id.emailInput); // Email
+        EditText hasloInput = findViewById(R.id.hasloInput); // Hasło
+        Button loginButton = findViewById(R.id.loginButton); // Przycisk logowania
 
         // Kliknięcie na przycisk logowania
         loginButton.setOnClickListener(v -> {
