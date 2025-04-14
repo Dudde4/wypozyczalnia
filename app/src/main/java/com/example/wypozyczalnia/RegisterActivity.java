@@ -50,6 +50,11 @@ public class RegisterActivity extends AppCompatActivity {
             String email = emailInput.getText().toString();
             String haslo = hasloInput.getText().toString();
 
+            if (imie.isEmpty() || nazwisko.isEmpty() || email.isEmpty() || haslo.isEmpty()) {
+                Toast.makeText(this, "Wszystkie pola muszą być wypełnione!", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
             String dane = imie + ";" + nazwisko + ";" + email + ";" + haslo + "\n";
 
             if (isExternalStorageWritable()) {

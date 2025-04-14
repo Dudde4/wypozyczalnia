@@ -6,7 +6,7 @@
     android:background="@color/background">
 
     <Button
-        android:id="@+id/addButton4"
+        android:id="@+id/deleteButton"
         android:layout_width="350dp"
         android:layout_height="60dp"
         android:backgroundTint="@color/light_purple"
@@ -257,7 +257,7 @@
             app:srcCompat="@drawable/edytuj" />
 
         <EditText
-            android:id="@+id/imieInput2"
+            android:id="@+id/imieInput"
             style="@style/Widget.Material3.AutoCompleteTextView.FilledBox"
             android:layout_width="297dp"
             android:layout_height="53dp"
