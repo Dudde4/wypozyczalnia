@@ -15,6 +15,9 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.example.wypozyczalnia.admin.AdminCarsActivity;
+import com.example.wypozyczalnia.user.SearchActivity;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -34,14 +37,7 @@ public class LoginActivity extends AppCompatActivity {
         copyDefaultUsersFileIfNeeded();
 
         // Pobieramy widoki
-        TextView registerTextView = findViewById(R.id.RegistertextView); // Link do rejestracji
-
-        // Ustawienie paddingu dla system bars
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });
+        TextView registerTextView = findViewById(R.id.registerTextView); // Link do rejestracji
 
         // Kliknięcie na rejestrację (przenosi do RegisterActivity)
         registerTextView.setOnClickListener(new View.OnClickListener() {
@@ -52,10 +48,17 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
+        // Ustawienie paddingu dla system bars
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
+            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
+            return insets;
+        });
 
-        EditText emailInput = findViewById(R.id.emailInput);  // Email
-        EditText hasloInput = findViewById(R.id.hasloInput);  // Hasło
-        Button loginButton = findViewById(R.id.loginButton);  // Przycisk logowania
+
+        EditText emailInput = findViewById(R.id.emailInput); // Email
+        EditText hasloInput = findViewById(R.id.hasloInput); // Hasło
+        Button loginButton = findViewById(R.id.loginButton); // Przycisk logowania
 
         // Kliknięcie na przycisk logowania
         loginButton.setOnClickListener(v -> {

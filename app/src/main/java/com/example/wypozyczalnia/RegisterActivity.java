@@ -1,4 +1,6 @@
 package com.example.wypozyczalnia;
+import com.example.wypozyczalnia.testy.RegistrationChecker;
+
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -53,7 +55,7 @@ public class RegisterActivity extends AppCompatActivity {
             if (isExternalStorageWritable()) {
                 File externalFile = new File(getExternalFilesDir(null), "uzytkownicy.txt");
 
-                // 🔍 Sprawdzenie, czy email już istnieje
+                // Sprawdzenie, czy email już istnieje
                 if (externalFile.exists()) {
                     try {
                         byte[] buffer = new byte[(int) externalFile.length()];
@@ -62,14 +64,11 @@ public class RegisterActivity extends AppCompatActivity {
                         fis.close();
 
                         String fileContents = new String(buffer);
-                        String[] lines = fileContents.split("\n");
-                        for (String line : lines) {
-                            String[] parts = line.split(";");
-                            if (parts.length >= 3 && parts[2].trim().equals(email)) {
-                                Toast.makeText(this, "Konto z takim adresem e-mail już istnieje!", Toast.LENGTH_LONG).show();
-                                return; // 👈 Przerywamy rejestrację
-                            }
+                        if (RegistrationChecker.emailExists(fileContents, email)) {
+                            Toast.makeText(this, "Konto z takim adresem e-mail już istnieje!", Toast.LENGTH_LONG).show();
+                            return;
                         }
+
 
                     } catch (IOException e) {
                         e.printStackTrace();
@@ -78,7 +77,7 @@ public class RegisterActivity extends AppCompatActivity {
                     }
                 }
 
-                // 📥 Dopisywanie nowych danych
+                // Dopisywanie nowych danych
                 try (FileOutputStream fos = new FileOutputStream(externalFile, true)) {
                     fos.write(dane.getBytes());
                     Toast.makeText(this, "Zarejestrowano pomyślnie!", Toast.LENGTH_SHORT).show();
