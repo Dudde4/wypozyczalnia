@@ -348,7 +348,7 @@
             app:srcCompat="@drawable/edytuj" />
 
         <EditText
-            android:id="@+id/imieInput2"
+            android:id="@+id/imieInput"
             style="@style/Widget.Material3.AutoCompleteTextView.FilledBox"
             android:layout_width="297dp"
             android:layout_height="53dp"
