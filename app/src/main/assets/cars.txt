@@ -1,0 +1,4 @@
+Erbe 80|200|5 miejsc * benzyna * 4.6L/100km|auto1
+Orin Safajer|150|7 miejsc * benzyna * 6.2L/100km|auto2
+Toya supra|213|4 miejsca * diesel * 5.3L/100km|auto3
+BMW golf|128|5 miejsc * LPG * 3.1L/100km|auto4
