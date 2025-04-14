@@ -1,6 +1,7 @@
 package com.example.wypozyczalnia;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -14,10 +15,18 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.example.wypozyczalnia.admin.AdminCarsActivity;
+import com.example.wypozyczalnia.user.SearchActivity;
+
+import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 
 public class LoginActivity extends AppCompatActivity {
+
+    public boolean adminMode = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,18 +34,10 @@ public class LoginActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.login_layout);
 
-        // Pobieramy widoki
-        TextView registerTextView = findViewById(R.id.RegistertextView); // Link do rejestracji
-        EditText emailInput = findViewById(R.id.emailInput);  // Email
-        EditText hasloInput = findViewById(R.id.hasloInput);  // Hasło
-        Button loginButton = findViewById(R.id.loginButton);  // Przycisk logowania
+        copyDefaultUsersFileIfNeeded();
 
-        // Ustawienie paddingu dla system bars
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });
+        // Pobieramy widoki
+        TextView registerTextView = findViewById(R.id.registerTextView); // Link do rejestracji
 
         // Kliknięcie na rejestrację (przenosi do RegisterActivity)
         registerTextView.setOnClickListener(new View.OnClickListener() {
@@ -47,15 +48,33 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
+        // Ustawienie paddingu dla system bars
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
+            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
+            return insets;
+        });
+
+
+        EditText emailInput = findViewById(R.id.emailInput); // Email
+        EditText hasloInput = findViewById(R.id.hasloInput); // Hasło
+        Button loginButton = findViewById(R.id.loginButton); // Przycisk logowania
+
         // Kliknięcie na przycisk logowania
         loginButton.setOnClickListener(v -> {
             String email = emailInput.getText().toString();
             String haslo = hasloInput.getText().toString();
 
             if (checkCredentials(email, haslo)) {
-                // Jeśli dane są poprawne, przechodzimy do SearchActivity
-                Intent intent = new Intent(LoginActivity.this, SearchActivity.class);
-                startActivity(intent);
+                if (adminMode) {
+                    Intent intent = new Intent(LoginActivity.this, AdminCarsActivity.class);
+                    startActivity(intent);
+                } else {
+                    // Jeśli dane są poprawne, przechodzimy do SearchActivity
+                    Intent intent = new Intent(LoginActivity.this, SearchActivity.class);
+                    startActivity(intent);
+                }
+
             } else {
                 // Jeśli dane są niepoprawne, wyświetlamy komunikat
                 Toast.makeText(LoginActivity.this, "Błędny email lub hasło", Toast.LENGTH_SHORT).show();
@@ -65,8 +84,15 @@ public class LoginActivity extends AppCompatActivity {
 
     // Funkcja sprawdzająca dane w pliku
     private boolean checkCredentials(String email, String haslo) {
+        File file = new File(getExternalFilesDir(null), "uzytkownicy.txt");
+
+        if (!file.exists()) {
+            Toast.makeText(this, "Brak zarejestrowanych użytkowników", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
         try {
-            FileInputStream fis = openFileInput("dupa.txt");
+            FileInputStream fis = new FileInputStream(file);
             byte[] buffer = new byte[fis.available()];
             fis.read(buffer);
             fis.close();
@@ -78,17 +104,69 @@ public class LoginActivity extends AppCompatActivity {
             for (String line : lines) {
                 String[] parts = line.split(";");
                 if (parts.length == 4) {
-                    String savedEmail = parts[2];  // Zakładając, że email jest na 3. pozycji
-                    String savedHaslo = parts[3];  // Zakładając, że hasło jest na 4. pozycji
+                    String savedEmail = parts[2].trim();
+                    String savedHaslo = parts[3].trim();
 
                     if (savedEmail.equals(email) && savedHaslo.equals(haslo)) {
-                        return true;  // Zgodność danych
+                        if (savedEmail.equals("Admin@gmail.com")) {
+                            adminMode = true;
+                            return true;
+                        }
+                        return true;
                     }
                 }
             }
         } catch (IOException e) {
             e.printStackTrace();
+            Toast.makeText(this, "Błąd podczas odczytu pliku", Toast.LENGTH_SHORT).show();
         }
-        return false;  // Brak zgodności danych
+        return false;
+    }
+
+    private void copyDefaultUsersFileIfNeeded() {
+        // SharedPreferences do zapisania stanu
+        SharedPreferences prefs = getSharedPreferences("AppPrefs", MODE_PRIVATE);
+        boolean isFileCopied = prefs.getBoolean("isFileCopied", false);
+
+        if (!isFileCopied) {
+            prefs.edit().putBoolean("isFileCopied", true).apply();
+            File userFile = new File(getExternalFilesDir(null), "uzytkownicy.txt");
+            File carFile = new File(getExternalFilesDir(null), "cars.txt");
+
+            try {
+                InputStream is = getAssets().open("uzytkownicy.txt");
+                FileOutputStream fos = new FileOutputStream(userFile);
+
+                byte[] buffer = new byte[1024];
+                int length;
+                while ((length = is.read(buffer)) > 0) {
+                    fos.write(buffer, 0, length);
+                }
+
+                fos.close();
+                is.close();
+
+                InputStream is2 = getAssets().open("cars.txt");
+                FileOutputStream fos2 = new FileOutputStream(carFile);
+
+                byte[] buffer2 = new byte[1024];
+                int length2;
+                while ((length2 = is2.read(buffer2)) > 0) {
+                    fos2.write(buffer2, 0, length2);
+                }
+
+                fos2.close();
+                is2.close();
+
+                // Ustawiamy flagę, że plik został już skopiowany
+                prefs.edit().putBoolean("isFileCopied", true).apply();
+                Toast.makeText(this, "Plik samochodow został utworzony", Toast.LENGTH_SHORT).show();
+
+                Toast.makeText(this, "Plik użytkowników został utworzony", Toast.LENGTH_SHORT).show();
+            } catch (IOException e) {
+                e.printStackTrace();
+                Toast.makeText(this, "Błąd kopiowania pliku", Toast.LENGTH_SHORT).show();
+            }
+        }
     }
 }

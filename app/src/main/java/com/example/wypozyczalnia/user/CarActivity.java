@@ -1,4 +1,4 @@
-package com.example.wypozyczalnia;
+package com.example.wypozyczalnia.user;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,6 +10,8 @@ import android.widget.Switch;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
+
+import com.example.wypozyczalnia.R;
 
 public class CarActivity extends AppCompatActivity {
     @Override
